@@ -65,6 +65,9 @@ cdef int njd_node_get_chain_flag(_njd.NJDNode* node) noexcept:
     return _njd.NJDNode_get_chain_flag(node)
 
 
+# NOTE:
+# Used only in `njd2feature()`.
+# Convert NJDNode struct into Python dictionary, all strings are decoded as UTF-8.
 cdef node2feature(_njd.NJDNode* node):
     return {
         "string": njd_node_get_string(node),
@@ -84,6 +87,9 @@ cdef node2feature(_njd.NJDNode* node):
     }
 
 
+# NOTE:
+# Used only in `OpenJTalk.run_frontend()`.
+# Convert each NJDNode into feature.
 cdef njd2feature(_njd.NJD* njd):
     cdef _njd.NJDNode* node = njd.head
     features = []
@@ -93,6 +99,9 @@ cdef njd2feature(_njd.NJD* njd):
     return features
 
 
+# NOTE:
+# Used only in `OpenJTalk.run_frontend()`.
+# Convert features into NJD.
 cdef void feature2njd(_njd.NJD* njd, features):
     cdef _njd.NJDNode* node
 
